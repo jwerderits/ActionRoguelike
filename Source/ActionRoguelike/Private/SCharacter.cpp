@@ -13,11 +13,11 @@ ASCharacter::ASCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	SpringArmComp = CreateDefaultSubobject<USpringArmComponent>("SpringArmComp");
-	SpringArmComp->SetupAttachment(RootComponent);
+	//SpringArmComp = CreateDefaultSubobject<USpringArmComponent>("SpringArmComp");
+	//SpringArmComp->SetupAttachment(RootComponent);
 
-	CameraComp = CreateDefaultSubobject<UCameraComponent>("CameraComp");
-	CameraComp->SetupAttachment(SpringArmComp);
+	//CameraComp = CreateDefaultSubobject<UCameraComponent>("CameraComp");
+	//CameraComp->SetupAttachment(SpringArmComp);
 
 
 	this->bUseControllerRotationPitch = false;
@@ -26,7 +26,19 @@ ASCharacter::ASCharacter()
 
 	TObjectPtr<UCharacterMovementComponent> MovementComponent = this->GetCharacterMovement();
 	MovementComponent->bOrientRotationToMovement = true;
+
+	this->CameraArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("TWA SpringArmComponent"));
+	this->CameraArmComponent->SetupAttachment(this->RootComponent.Get());
+	this->CameraArmComponent->TargetArmLength = 400.0f;
+	this->CameraArmComponent->bUsePawnControlRotation = true;
+
+	this->CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("TWA CameraComponent"));
+	this->CameraComponent->SetupAttachment(this->CameraArmComponent.Get(), USpringArmComponent::SocketName);
+	this->CameraComponent->bUsePawnControlRotation = false;
+
+
 }
+
 
 // Called when the game starts or when spawned
 void ASCharacter::BeginPlay()

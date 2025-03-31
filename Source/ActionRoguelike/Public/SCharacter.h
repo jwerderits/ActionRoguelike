@@ -22,11 +22,14 @@ public:
 
 protected:
 
-	UPROPERTY(VisibleAnywhere)
-	USpringArmComponent* SpringArmComp;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = TWA_Camera, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<USpringArmComponent> CameraArmComponent;
 
-	UPROPERTY(VisibleAnywhere)
-	UCameraComponent* CameraComp;
+	//UPROPERTY(VisibleAnywhere)
+	//USpringArmComponent* SpringArmComp;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = TWA_Camera, meta = (AllowPrivateAccess = "true"))
+	UCameraComponent* CameraComponent;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

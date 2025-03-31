@@ -19,34 +19,34 @@ void ACharacterControllerBase::SetupInputComponent()
 	if (EnhancedInputComponent)
 	{
 		//Move
-		EnhancedInputComponent->BindAction(Cast<const UInputAction>(MoveAction.Get()),
+		EnhancedInputComponent->BindAction(MoveAction.Get(),
 											ETriggerEvent::Triggered,
 											this,
 											&ACharacterControllerBase::Move);
 
 		//Look
-		EnhancedInputComponent->BindAction(Cast<const UInputAction>(LookAction.Get()),
+		EnhancedInputComponent->BindAction(LookAction.Get(),
 											ETriggerEvent::Triggered,
 											this,
 											&ACharacterControllerBase::Look);
 
 		//Jump
-		EnhancedInputComponent->BindAction(Cast<const UInputAction>(JumpAction.Get()),
+		EnhancedInputComponent->BindAction(JumpAction.Get(),
 											ETriggerEvent::Started,
 											this,
 											&ACharacterControllerBase::JumpStart);
 
-		EnhancedInputComponent->BindAction(Cast<const UInputAction>(JumpAction.Get()),
+		EnhancedInputComponent->BindAction(JumpAction.Get(),
 											ETriggerEvent::Completed,
 											this,
 											&ACharacterControllerBase::JumpStop);
 
 		//Run
-		EnhancedInputComponent->BindAction(Cast<const UInputAction>(RunAction.Get()),
+		EnhancedInputComponent->BindAction(RunAction.Get(),
 											ETriggerEvent::Started,
 											this,
 											&ACharacterControllerBase::RunStart);
-		EnhancedInputComponent->BindAction(Cast<const UInputAction>(RunAction.Get()),
+		EnhancedInputComponent->BindAction(RunAction.Get(),
 											ETriggerEvent::Completed,
 											this,
 											&ACharacterControllerBase::RunStop);
@@ -79,9 +79,8 @@ void ACharacterControllerBase::Move(const FInputActionValue& Value)
 	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
-	this->CurrentCharacter->AddMovementInput(ForwardDirection, MovementVector.X);
-	this->CurrentCharacter->AddMovementInput(RightDirection, MovementVector.Y);
-
+	this->CurrentCharacter->AddMovementInput(ForwardDirection, MovementVector.Y);
+	this->CurrentCharacter->AddMovementInput(RightDirection, MovementVector.X);
 }
 void ACharacterControllerBase::Look(const FInputActionValue& Value)
 {
