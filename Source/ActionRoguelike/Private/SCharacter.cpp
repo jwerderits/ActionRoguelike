@@ -13,13 +13,6 @@ ASCharacter::ASCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	//SpringArmComp = CreateDefaultSubobject<USpringArmComponent>("SpringArmComp");
-	//SpringArmComp->SetupAttachment(RootComponent);
-
-	//CameraComp = CreateDefaultSubobject<UCameraComponent>("CameraComp");
-	//CameraComp->SetupAttachment(SpringArmComp);
-
-
 	this->bUseControllerRotationPitch = false;
 	this->bUseControllerRotationYaw = false;
 	this->bUseControllerRotationRoll = false;
