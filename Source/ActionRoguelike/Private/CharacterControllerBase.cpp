@@ -7,6 +7,7 @@
 #include "InputMappingContext.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "SCharacter.h"
+#include "SMagicProjectile.h"
 
 void ACharacterControllerBase::SetupInputComponent()
 {
@@ -20,39 +21,45 @@ void ACharacterControllerBase::SetupInputComponent()
 	{
 		//Move
 		EnhancedInputComponent->BindAction(MoveAction.Get(),
-											ETriggerEvent::Triggered,
-											this,
-											&ACharacterControllerBase::Move);
+			ETriggerEvent::Triggered,
+			this,
+			&ACharacterControllerBase::Move);
 
 		//Look
 		EnhancedInputComponent->BindAction(LookAction.Get(),
-											ETriggerEvent::Triggered,
-											this,
-											&ACharacterControllerBase::Look);
+			ETriggerEvent::Triggered,
+			this,
+			&ACharacterControllerBase::Look);
 
 		//Jump
 		EnhancedInputComponent->BindAction(JumpAction.Get(),
-											ETriggerEvent::Started,
-											this,
-											&ACharacterControllerBase::JumpStart);
+			ETriggerEvent::Started,
+			this,
+			&ACharacterControllerBase::JumpStart);
 
 		EnhancedInputComponent->BindAction(JumpAction.Get(),
-											ETriggerEvent::Completed,
-											this,
-											&ACharacterControllerBase::JumpStop);
+			ETriggerEvent::Completed,
+			this,
+			&ACharacterControllerBase::JumpStop);
 
 		//Run
 		EnhancedInputComponent->BindAction(RunAction.Get(),
-											ETriggerEvent::Started,
-											this,
-											&ACharacterControllerBase::RunStart);
+			ETriggerEvent::Started,
+			this,
+			&ACharacterControllerBase::RunStart);
 		EnhancedInputComponent->BindAction(RunAction.Get(),
-											ETriggerEvent::Completed,
-											this,
-											&ACharacterControllerBase::RunStop);
+			ETriggerEvent::Completed,
+			this,
+			&ACharacterControllerBase::RunStop);
+
+		//PrimaryAttack
+		EnhancedInputComponent->BindAction(PrimaryAttackAction.Get(),
+			ETriggerEvent::Triggered,
+			this,
+			&ACharacterControllerBase::PrimaryAttack);
+
 	}
 }
-
 
 void ACharacterControllerBase::OnPossess(APawn* InPawn)
 {
@@ -108,4 +115,20 @@ void ACharacterControllerBase::RunStart()
 void ACharacterControllerBase::RunStop()
 {
 	this->CurrentCharacter->GetCharacterMovement()->MaxWalkSpeed /= 2.0f;
+}
+
+void ACharacterControllerBase::PrimaryAttack()
+{
+	FTransform SpawnTransform = this->CurrentCharacter->GetTransform();
+
+	UPROPERTY(EditDefaultsOnly, Category = "Attack")
+	TSubclassOf<ASMagicProjectile> ProjectileClass;
+
+
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	GetWorld()->SpawnActor<ASMagicProjectile>(ProjectileClass,
+		SpawnTransform, SpawnParams);
+
 }

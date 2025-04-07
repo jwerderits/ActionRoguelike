@@ -37,7 +37,10 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = TWA_Input, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> RunAction;
-	
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = TWA_Input, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UInputAction> PrimaryAttackAction;
+
 	TObjectPtr<ASCharacter> CurrentCharacter;
 
 public:
@@ -59,4 +62,6 @@ protected:
 	void RunStart();
 
 	void RunStop();
+
+	void PrimaryAttack();
 };
