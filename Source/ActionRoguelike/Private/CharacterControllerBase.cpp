@@ -121,12 +121,9 @@ void ACharacterControllerBase::PrimaryAttack()
 {
 	FTransform SpawnTransform = this->CurrentCharacter->GetTransform();
 
-	UPROPERTY(EditDefaultsOnly, Category = "Attack")
-	TSubclassOf<ASMagicProjectile> ProjectileClass;
-
-
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
 
 	GetWorld()->SpawnActor<ASMagicProjectile>(ProjectileClass,
 		SpawnTransform, SpawnParams);

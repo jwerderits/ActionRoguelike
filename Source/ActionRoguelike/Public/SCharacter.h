@@ -9,7 +9,7 @@
 
 class UCameraComponent;
 class USpringArmComponent;
-
+class ProjectileClass;
 
 UCLASS()
 class ACTIONROGUELIKE_API ASCharacter : public ACharacter
@@ -30,6 +30,10 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = TWA_Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* CameraComponent;
+
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor>ProjectileClass;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
