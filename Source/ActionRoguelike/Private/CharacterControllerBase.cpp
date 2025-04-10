@@ -119,7 +119,10 @@ void ACharacterControllerBase::RunStop()
 
 void ACharacterControllerBase::PrimaryAttack()
 {
-	FTransform SpawnTransform = this->CurrentCharacter->GetTransform();
+
+	FVector HandLocation = this->CurrentCharacter->GetMesh()->GetSocketLocation("Muzzle_01");
+	FRotator CharRotation = this->CurrentCharacter->GetActorRotation();
+	FTransform SpawnTransform = FTransform(CharRotation, HandLocation);
 
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
