@@ -25,9 +25,6 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = TWA_Camera, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<USpringArmComponent> CameraArmComponent;
 
-	//UPROPERTY(VisibleAnywhere)
-	//USpringArmComponent* SpringArmComp;
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = TWA_Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* CameraComponent;
 
