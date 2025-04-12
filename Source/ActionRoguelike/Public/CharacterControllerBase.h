@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "SMagicProjectile.h"
 #include "CharacterControllerBase.generated.h"
 
 /**
@@ -37,7 +38,13 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = TWA_Input, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> RunAction;
-	
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = TWA_Input, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UInputAction> PrimaryAttackAction;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Projectile")
+	TSubclassOf<ASMagicProjectile> ProjectileClass;
+
 	TObjectPtr<ASCharacter> CurrentCharacter;
 
 public:
@@ -45,7 +52,7 @@ public:
 	virtual void SetupInputComponent() override;
 
 protected:
-		
+
 	virtual void OnPossess(APawn* InPawn) override;
 
 	void Move(const FInputActionValue& Value);
@@ -59,4 +66,6 @@ protected:
 	void RunStart();
 
 	void RunStop();
+
+	void PrimaryAttack();
 };
