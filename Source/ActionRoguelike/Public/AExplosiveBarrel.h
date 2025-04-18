@@ -9,7 +9,7 @@
 
 class USphereComponent;
 class UStaticMeshComponent;
-
+class URadialForceComponent;
 
 UCLASS()
 class ACTIONROGUELIKE_API AExplosiveBarrel : public AActor
@@ -28,11 +28,20 @@ protected:
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* MeshComponent;
 
+	UPROPERTY(EditAnywhere)
+	URadialForceComponent* ForceComponent;
+
+	void Explode();
+
+
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	
 
 };
