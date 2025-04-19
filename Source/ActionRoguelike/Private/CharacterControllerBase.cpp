@@ -131,4 +131,6 @@ void ACharacterControllerBase::PrimaryAttack()
 	GetWorld()->SpawnActor<ASMagicProjectile>(ProjectileClass,
 		SpawnTransform, SpawnParams);
 
+	UE_LOG(LogTemp, Display, TEXT("Shooting"));
+
 }
