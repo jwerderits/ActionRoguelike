@@ -44,6 +44,9 @@ void AExplosiveBarrel::Explode()
 	ForceComponent->Radius = 1000.0f;
 	ForceComponent->ImpulseStrength = 1000.0f;
 	ForceComponent->bImpulseVelChange = true;
+
+	MeshComponent->SetSimulatePhysics(true);
+	MeshComponent->AddImpulse(FVector(0.f, 0.f, 1000.f), NAME_None, true);
 }
 
 void AExplosiveBarrel::BeginPlay()
