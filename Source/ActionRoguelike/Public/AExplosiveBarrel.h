@@ -10,6 +10,7 @@
 class USphereComponent;
 class UStaticMeshComponent;
 class URadialForceComponent;
+class UPrimitiveComponent;
 
 UCLASS()
 class ACTIONROGUELIKE_API AExplosiveBarrel : public AActor
@@ -31,8 +32,8 @@ protected:
 	UPROPERTY(EditAnywhere)
 	URadialForceComponent* ForceComponent;
 
-	void Explode();
 
+	void Explode();
 
 
 	// Called when the game starts or when spawned
@@ -41,6 +42,15 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION()
+	void OnSphereBeginOverlap(
+		UPrimitiveComponent* OverlappedComp,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex,
+		bool bFromSweep,
+		const FHitResult& SweepResult);
 
 	
 
