@@ -141,6 +141,15 @@ void ACharacterControllerBase::RunStop()
 void ACharacterControllerBase::PrimaryAttack()
 {
 
+	this->CurrentCharacter->PlayAnimMontage(this->AttackMontage);
+
+	GetWorldTimerManager().SetTimer(Timerhandle_PrimaryAttack, this, &ACharacterControllerBase::PrimaryAttack_TimeElapsed, 0.2f);
+
+}
+
+void ACharacterControllerBase::PrimaryAttack_TimeElapsed()
+{
+	UE_LOG(LogTemp, Display, TEXT("Primary Attack Time Elapsed"));
 	FVector HandLocation = this->CurrentCharacter->GetMesh()->GetSocketLocation("Muzzle_01");
 	FRotator CharRotation = this->CurrentCharacter->GetActorRotation();
 	FTransform SpawnTransform = FTransform(CharRotation, HandLocation);
@@ -153,7 +162,6 @@ void ACharacterControllerBase::PrimaryAttack()
 		SpawnTransform, SpawnParams);
 
 	UE_LOG(LogTemp, Display, TEXT("Shooting"));
-
 }
 
 void ACharacterControllerBase::PrimaryInteract()
