@@ -16,7 +16,7 @@ ASCharacter::ASCharacter()
 	this->bUseControllerRotationPitch = false;
 	this->bUseControllerRotationYaw = false;
 	this->bUseControllerRotationRoll = false;
-
+	
 	TObjectPtr<UCharacterMovementComponent> MovementComponent = this->GetCharacterMovement();
 	MovementComponent->bOrientRotationToMovement = true;
 
@@ -29,6 +29,7 @@ ASCharacter::ASCharacter()
 	this->CameraComponent->SetupAttachment(this->CameraArmComponent.Get(), USpringArmComponent::SocketName);
 	this->CameraComponent->bUsePawnControlRotation = false;
 
+	this->InteractionComponent = CreateDefaultSubobject<USInteractionComponent>(TEXT("TWA InteractionComponent"));
 
 }
 

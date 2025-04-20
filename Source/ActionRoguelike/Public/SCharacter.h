@@ -4,12 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "SInteractionComponent.h"
 #include "SCharacter.generated.h"
 
 
 class UCameraComponent;
 class USpringArmComponent;
 class ProjectileClass;
+class USInteractionComponent;
+
 
 UCLASS()
 class ACTIONROGUELIKE_API ASCharacter : public ACharacter
@@ -28,6 +31,8 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = TWA_Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* CameraComponent;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = TWA_Camera, meta = (AllowPrivateAccess = "true"))
+	USInteractionComponent* InteractionComponent;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AActor>ProjectileClass;

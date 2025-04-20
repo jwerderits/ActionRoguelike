@@ -45,6 +45,12 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Projectile")
 	TSubclassOf<ASMagicProjectile> ProjectileClass;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = TWA_Input, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UInputAction> PrimaryInteractAction;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = TWA_Input, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UInputAction> TestAction;
+
 	TObjectPtr<ASCharacter> CurrentCharacter;
 
 public:
@@ -68,4 +74,8 @@ protected:
 	void RunStop();
 
 	void PrimaryAttack();
+
+	void PrimaryInteract();
+
+	void Test();
 };
