@@ -13,6 +13,7 @@
 class UInputMappingContext;
 class UInputAction;
 class ASCharacter;
+class UAnimMontage;
 
 struct FInputActionValue;
 
@@ -45,6 +46,11 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Projectile")
 	TSubclassOf<ASMagicProjectile> ProjectileClass;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Projectile")
+	UAnimMontage* AttackMontage;
+
+	FTimerHandle Timerhandle_PrimaryAttack;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = TWA_Input, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> PrimaryInteractAction;
 
@@ -74,6 +80,8 @@ protected:
 	void RunStop();
 
 	void PrimaryAttack();
+
+	void PrimaryAttack_TimeElapsed();
 
 	void PrimaryInteract();
 
