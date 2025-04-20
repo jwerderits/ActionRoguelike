@@ -1,5 +1,6 @@
 #include "SItemChest.h"
 #include "Components/StaticMeshComponent.h"
+#include "SGameplayInterface.h"
 
 
 ASItemChest::ASItemChest()

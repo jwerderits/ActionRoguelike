@@ -8,6 +8,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "SCharacter.h"
 #include "SMagicProjectile.h"
+#include "SInteractionComponent.h"
 
 void ACharacterControllerBase::SetupInputComponent()
 {
@@ -15,7 +16,7 @@ void ACharacterControllerBase::SetupInputComponent()
 
 	TObjectPtr<UEnhancedInputComponent> EnhancedInputComponent
 		= Cast<UEnhancedInputComponent>(this->InputComponent);
-
+	
 
 	if (EnhancedInputComponent)
 	{
@@ -58,6 +59,18 @@ void ACharacterControllerBase::SetupInputComponent()
 			this,
 			&ACharacterControllerBase::PrimaryAttack);
 
+		//PrimaryInteract
+		EnhancedInputComponent->BindAction(PrimaryInteractAction.Get(),
+			ETriggerEvent::Triggered,
+			this,
+			&ACharacterControllerBase::PrimaryInteract);
+
+		//PrimaryInteract
+		EnhancedInputComponent->BindAction(TestAction.Get(),
+			ETriggerEvent::Triggered,
+			this,
+			&ACharacterControllerBase::Test);
+
 	}
 }
 
@@ -74,6 +87,13 @@ void ACharacterControllerBase::OnPossess(APawn* InPawn)
 	{
 		InputLocalPlayerSubsystem->AddMappingContext(this->CurrentMappingContext.Get(), 0);
 	}
+
+	TObjectPtr<USInteractionComponent> InteractionComponent
+		= this->CurrentCharacter->FindComponentByClass<USInteractionComponent>();
+
+
+	UE_LOG(LogTemp, Display, TEXT("Mapping Context: %s"), *GetNameSafe(CurrentMappingContext));
+
 
 }
 void ACharacterControllerBase::Move(const FInputActionValue& Value)
@@ -99,6 +119,7 @@ void ACharacterControllerBase::Look(const FInputActionValue& Value)
 
 void ACharacterControllerBase::JumpStart()
 {
+	UE_LOG(LogTemp, Display, TEXT("jumping"));
 	this->CurrentCharacter->Jump();
 }
 
@@ -133,4 +154,28 @@ void ACharacterControllerBase::PrimaryAttack()
 
 	UE_LOG(LogTemp, Display, TEXT("Shooting"));
 
+}
+
+void ACharacterControllerBase::PrimaryInteract()
+{
+	UE_LOG(LogTemp, Display, TEXT("Primary Interact"));
+
+	USInteractionComponent* InteractionComponent
+		= this->CurrentCharacter->FindComponentByClass<USInteractionComponent>();
+
+	if (InteractionComponent)
+	{
+		UE_LOG(LogTemp, Display, TEXT("Primary Interact component found"));
+		InteractionComponent->PrimaryInteract();
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No Interaction Component Found"));
+		
+	}
+}
+
+void ACharacterControllerBase::Test()
+{
+	UE_LOG(LogTemp, Display, TEXT("Test Action"));
 }
