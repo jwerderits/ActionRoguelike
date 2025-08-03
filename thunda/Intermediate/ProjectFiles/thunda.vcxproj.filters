@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\thunda.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\thunda.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\thundaEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\thunda">
+      <UniqueIdentifier>{307B1888-B122-3A2A-84C3-1992F6523E2E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\thunda\thunda.Build.cs">
+      <Filter>Source\thunda</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\thunda\thunda.cpp">
+      <Filter>Source\thunda</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\thunda\thunda.h">
+      <Filter>Source\thunda</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\thunda\thundaCharacter.cpp">
+      <Filter>Source\thunda</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\thunda\thundaCharacter.h">
+      <Filter>Source\thunda</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\thunda\thundaGameMode.cpp">
+      <Filter>Source\thunda</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\thunda\thundaGameMode.h">
+      <Filter>Source\thunda</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\thunda\thundaPickUpComponent.cpp">
+      <Filter>Source\thunda</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\thunda\thundaPickUpComponent.h">
+      <Filter>Source\thunda</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\thunda\thundaProjectile.cpp">
+      <Filter>Source\thunda</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\thunda\thundaProjectile.h">
+      <Filter>Source\thunda</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\thunda\thundaWeaponComponent.cpp">
+      <Filter>Source\thunda</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\thunda\thundaWeaponComponent.h">
+      <Filter>Source\thunda</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

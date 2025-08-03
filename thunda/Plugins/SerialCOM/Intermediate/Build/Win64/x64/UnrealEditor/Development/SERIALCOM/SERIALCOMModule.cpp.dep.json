@@ -1,0 +1,14 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\github\\actionroguelike\\thunda\\plugins\\serialcom\\source\\serialcom\\private\\serialcommodule.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\github\\actionroguelike\\thunda\\intermediate\\build\\win64\\x64\\thundaeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\github\\actionroguelike\\thunda\\plugins\\serialcom\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\serialcom\\definitions.serialcom.h",
+            "c:\\github\\actionroguelike\\thunda\\plugins\\serialcom\\source\\serialcom\\public\\serialcommodule.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

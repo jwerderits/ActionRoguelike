@@ -22,6 +22,8 @@ AExplosiveBarrel::AExplosiveBarrel()
 	SphereComponent->SetCollisionResponseToAllChannels(ECR_Ignore);
 	SphereComponent->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
 	SphereComponent->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Overlap);
+	SphereComponent->SetCollisionResponseToChannel(ECC_PhysicsBody, ECR_Overlap);
+	SphereComponent->SetCollisionResponseToChannel(ECC_Destructible, ECR_Overlap);
 	SphereComponent->SetGenerateOverlapEvents(true);
 	MeshComponent->SetupAttachment(SphereComponent);
 	RootComponent = SphereComponent;

@@ -1,0 +1,15 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\github\\actionroguelike\\thunda\\intermediate\\build\\win64\\unrealeditor\\inc\\thunda\\uht\\thundaprojectile.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\github\\actionroguelike\\thunda\\intermediate\\build\\win64\\x64\\thundaeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\github\\actionroguelike\\thunda\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\thunda\\definitions.thunda.h",
+            "c:\\github\\actionroguelike\\thunda\\source\\thunda\\thundaprojectile.h",
+            "c:\\github\\actionroguelike\\thunda\\intermediate\\build\\win64\\unrealeditor\\inc\\thunda\\uht\\thundaprojectile.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

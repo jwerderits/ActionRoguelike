@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "SMagicProjectile.h"
+
+#include "SBlackHole.h"
 #include "CharacterControllerBase.generated.h"
 
 /**
@@ -43,19 +45,26 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = TWA_Input, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> PrimaryAttackAction;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = TWA_Input, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UInputAction> BlackHoleAction;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Projectile")
 	TSubclassOf<ASMagicProjectile> ProjectileClass;
+
+	UPROPERTY(EditDefaultsOnly, Category = "BlackHole")
+	TSubclassOf<ASBlackHole> BlackHoleClass;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Projectile")
 	UAnimMontage* AttackMontage;
 
 	FTimerHandle Timerhandle_PrimaryAttack;
 
+	FTimerHandle Timerhandle_BlackHole;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = TWA_Input, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> PrimaryInteractAction;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = TWA_Input, meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UInputAction> TestAction;
 
 	TObjectPtr<ASCharacter> CurrentCharacter;
 
@@ -85,5 +94,7 @@ protected:
 
 	void PrimaryInteract();
 
-	void Test();
+	void BlackHole();
+
+	void BlackHole_TimeElapsed();
 };

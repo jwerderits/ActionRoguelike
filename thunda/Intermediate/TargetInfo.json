@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "thunda",
+			"Path": "..\\Source\\thunda.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "thundaEditor",
+			"Path": "..\\Source\\thundaEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

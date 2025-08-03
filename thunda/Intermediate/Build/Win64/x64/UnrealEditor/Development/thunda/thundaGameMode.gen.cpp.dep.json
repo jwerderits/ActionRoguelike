@@ -1,0 +1,19 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\github\\actionroguelike\\thunda\\intermediate\\build\\win64\\unrealeditor\\inc\\thunda\\uht\\thundagamemode.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\github\\actionroguelike\\thunda\\intermediate\\build\\win64\\x64\\thundaeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\github\\actionroguelike\\thunda\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\thunda\\definitions.thunda.h",
+            "c:\\github\\actionroguelike\\thunda\\source\\thunda\\thundagamemode.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\gamemodebase.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\engine\\serverstatreplicator.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\serverstatreplicator.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\gamemodebase.generated.h",
+            "c:\\github\\actionroguelike\\thunda\\intermediate\\build\\win64\\unrealeditor\\inc\\thunda\\uht\\thundagamemode.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

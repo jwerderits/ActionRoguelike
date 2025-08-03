@@ -8,6 +8,8 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "SCharacter.h"
 #include "SMagicProjectile.h"
+
+#include "SBlackHole.h"
 #include "SInteractionComponent.h"
 
 void ACharacterControllerBase::SetupInputComponent()
@@ -59,17 +61,18 @@ void ACharacterControllerBase::SetupInputComponent()
 			this,
 			&ACharacterControllerBase::PrimaryAttack);
 
+		//BlackHole
+		EnhancedInputComponent->BindAction(BlackHoleAction.Get(),
+			ETriggerEvent::Triggered,
+			this,
+			&ACharacterControllerBase::BlackHole);
+
 		//PrimaryInteract
 		EnhancedInputComponent->BindAction(PrimaryInteractAction.Get(),
 			ETriggerEvent::Triggered,
 			this,
 			&ACharacterControllerBase::PrimaryInteract);
 
-		//PrimaryInteract
-		EnhancedInputComponent->BindAction(TestAction.Get(),
-			ETriggerEvent::Triggered,
-			this,
-			&ACharacterControllerBase::Test);
 
 	}
 }
@@ -92,7 +95,7 @@ void ACharacterControllerBase::OnPossess(APawn* InPawn)
 		= this->CurrentCharacter->FindComponentByClass<USInteractionComponent>();
 
 
-	UE_LOG(LogTemp, Display, TEXT("Mapping Context: %s"), *GetNameSafe(CurrentMappingContext));
+	//UE_LOG(LogTemp, Display, TEXT("Mapping Context: %s"), *GetNameSafe(CurrentMappingContext));
 
 
 }
@@ -147,15 +150,47 @@ void ACharacterControllerBase::PrimaryAttack()
 
 }
 
+void ACharacterControllerBase::BlackHole()
+{
+	this->CurrentCharacter->PlayAnimMontage(this->AttackMontage);
+		UE_LOG(LogTemp, Display, TEXT("Black Hole Key Pressed"));
+
+	GetWorldTimerManager().SetTimer(Timerhandle_BlackHole, this, &ACharacterControllerBase::BlackHole_TimeElapsed, 0.2f);
+
+}
+
+void ACharacterControllerBase::BlackHole_TimeElapsed()
+{
+	FVector CharacterLocation = this->CurrentCharacter->GetActorLocation();
+	FRotator CameraRotation = this->GetControlRotation();
+	FVector CharacterForwardVector = this->CurrentCharacter->GetActorForwardVector();
+	float DesiredDistance = 200.0f;
+	FVector ProjectileSpawnLocation = CharacterLocation + (CharacterForwardVector * DesiredDistance);
+
+	FTransform SpawnTransform = FTransform(CameraRotation, ProjectileSpawnLocation);
+
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	SpawnParams.Instigator = this->CurrentCharacter;
+
+
+	GetWorld()->SpawnActor<ASBlackHole>(BlackHoleClass,
+		SpawnTransform, SpawnParams);
+}
+
 void ACharacterControllerBase::PrimaryAttack_TimeElapsed()
 {
 	UE_LOG(LogTemp, Display, TEXT("Primary Attack Time Elapsed"));
 	FVector HandLocation = this->CurrentCharacter->GetMesh()->GetSocketLocation("Muzzle_01");
-	FRotator CharRotation = this->CurrentCharacter->GetActorRotation();
-	FTransform SpawnTransform = FTransform(CharRotation, HandLocation);
+
+	FRotator CameraRotation = this->GetControlRotation();
+
+	//FRotator CharRotation = this->CurrentCharacter->GetActorRotation();
+	FTransform SpawnTransform = FTransform(CameraRotation, HandLocation);
 
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	SpawnParams.Instigator = this->CurrentCharacter;
 
 
 	GetWorld()->SpawnActor<ASMagicProjectile>(ProjectileClass,
@@ -181,9 +216,4 @@ void ACharacterControllerBase::PrimaryInteract()
 		UE_LOG(LogTemp, Warning, TEXT("No Interaction Component Found"));
 		
 	}
-}
-
-void ACharacterControllerBase::Test()
-{
-	UE_LOG(LogTemp, Display, TEXT("Test Action"));
 }

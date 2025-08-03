@@ -1,0 +1,9 @@
+{
+	"SourceFiles": [
+		"C:\\GitHub\\ActionRoguelike\\thunda\\Source\\thunda\\thunda.Build.cs",
+		"C:\\GitHub\\ActionRoguelike\\thunda\\Plugins\\SerialCOM\\Source\\SERIALCOM\\SERIALCOM.Build.cs",
+		"C:\\GitHub\\ActionRoguelike\\thunda\\Source\\thunda.Target.cs",
+		"C:\\GitHub\\ActionRoguelike\\thunda\\Source\\thundaEditor.Target.cs"
+	],
+	"EngineVersion": "5.5.3"
+}
