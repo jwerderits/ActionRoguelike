@@ -7,6 +7,8 @@
 #include "SMagicProjectile.h"
 
 #include "SBlackHole.h"
+#include "STeleportProjectile.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "CharacterControllerBase.generated.h"
 
 /**
@@ -54,12 +56,20 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "BlackHole")
 	TSubclassOf<ASBlackHole> BlackHoleClass;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = TWA_Input, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UInputAction> TeleportAction;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Teleport")
+	TSubclassOf<ASTeleportProjectile> TeleportProjectileClass;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Projectile")
 	UAnimMontage* AttackMontage;
 
 	FTimerHandle Timerhandle_PrimaryAttack;
 
 	FTimerHandle Timerhandle_BlackHole;
+
+	FTimerHandle Timerhandle_Teleport;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = TWA_Input, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> PrimaryInteractAction;
@@ -75,6 +85,8 @@ public:
 protected:
 
 	virtual void OnPossess(APawn* InPawn) override;
+
+	void SpawnProjectile(TSubclassOf<AActor> ClassToSpawn);
 
 	void Move(const FInputActionValue& Value);
 
@@ -97,4 +109,8 @@ protected:
 	void BlackHole();
 
 	void BlackHole_TimeElapsed();
+
+	void Teleport();
+
+	void Teleport_TimeElapsed();
 };

@@ -10,6 +10,7 @@
 #include "SMagicProjectile.h"
 
 #include "SBlackHole.h"
+#include "STeleportProjectile.h"
 #include "SInteractionComponent.h"
 
 void ACharacterControllerBase::SetupInputComponent()
@@ -18,7 +19,7 @@ void ACharacterControllerBase::SetupInputComponent()
 
 	TObjectPtr<UEnhancedInputComponent> EnhancedInputComponent
 		= Cast<UEnhancedInputComponent>(this->InputComponent);
-	
+
 
 	if (EnhancedInputComponent)
 	{
@@ -67,6 +68,12 @@ void ACharacterControllerBase::SetupInputComponent()
 			this,
 			&ACharacterControllerBase::BlackHole);
 
+		//Teleport
+		EnhancedInputComponent->BindAction(TeleportAction.Get(),
+			ETriggerEvent::Triggered,
+			this,
+			&ACharacterControllerBase::Teleport);
+
 		//PrimaryInteract
 		EnhancedInputComponent->BindAction(PrimaryInteractAction.Get(),
 			ETriggerEvent::Triggered,
@@ -98,6 +105,45 @@ void ACharacterControllerBase::OnPossess(APawn* InPawn)
 	//UE_LOG(LogTemp, Display, TEXT("Mapping Context: %s"), *GetNameSafe(CurrentMappingContext));
 
 
+}
+
+void ACharacterControllerBase::SpawnProjectile(TSubclassOf<AActor> ClassToSpawn)
+{
+	if (ensureAlways(ClassToSpawn))
+	{
+
+		FVector HandLocation = this->CurrentCharacter->GetMesh()->GetSocketLocation("Muzzle_01");
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		SpawnParams.Instigator = this->CurrentCharacter;
+
+		FCollisionShape Shape;
+		Shape.SetSphere(20.0f);
+
+		FCollisionQueryParams QueryParams;
+		QueryParams.AddIgnoredActor(this->CurrentCharacter);
+
+		FCollisionObjectQueryParams ObjectQueryParams;
+		ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+		ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldStatic);
+		ObjectQueryParams.AddObjectTypesToQuery(ECC_Pawn);
+
+		FVector TraceStart = this->CurrentCharacter->GetPawnViewLocation();
+		FVector TraceEnd = TraceStart + (this->CurrentCharacter->GetViewRotation().Vector() * 5000.0f);
+
+		FHitResult Hit;
+
+		if (GetWorld()->SweepSingleByObjectType(Hit, TraceStart, TraceEnd, FQuat::Identity, ObjectQueryParams, Shape, QueryParams))
+		{
+			// If we hit something, spawn the projectile at the hit location
+			TraceEnd = Hit.ImpactPoint;
+		}
+
+		FRotator ProjectileRotation = FRotationMatrix::MakeFromX(TraceEnd - HandLocation).Rotator();
+
+		FTransform SpawnTransform = FTransform(ProjectileRotation, HandLocation);
+		GetWorld()->SpawnActor<AActor>(ClassToSpawn, SpawnTransform, SpawnParams);
+	}
 }
 void ACharacterControllerBase::Move(const FInputActionValue& Value)
 {
@@ -143,7 +189,6 @@ void ACharacterControllerBase::RunStop()
 
 void ACharacterControllerBase::PrimaryAttack()
 {
-
 	this->CurrentCharacter->PlayAnimMontage(this->AttackMontage);
 
 	GetWorldTimerManager().SetTimer(Timerhandle_PrimaryAttack, this, &ACharacterControllerBase::PrimaryAttack_TimeElapsed, 0.2f);
@@ -158,6 +203,24 @@ void ACharacterControllerBase::BlackHole()
 	GetWorldTimerManager().SetTimer(Timerhandle_BlackHole, this, &ACharacterControllerBase::BlackHole_TimeElapsed, 0.2f);
 
 }
+
+void ACharacterControllerBase::Teleport()
+{
+	this->CurrentCharacter->PlayAnimMontage(this->AttackMontage);
+	UE_LOG(LogTemp, Display, TEXT("Teleport Key Pressed"));
+
+	GetWorldTimerManager().SetTimer(Timerhandle_Teleport, this, &ACharacterControllerBase::Teleport_TimeElapsed, 0.2f);
+
+}
+
+void ACharacterControllerBase::Teleport_TimeElapsed()
+{
+
+	SpawnProjectile(TeleportProjectileClass);
+
+	UE_LOG(LogTemp, Display, TEXT("Teleport Projectile"));
+}
+
 
 void ACharacterControllerBase::BlackHole_TimeElapsed()
 {
@@ -181,22 +244,9 @@ void ACharacterControllerBase::BlackHole_TimeElapsed()
 void ACharacterControllerBase::PrimaryAttack_TimeElapsed()
 {
 	UE_LOG(LogTemp, Display, TEXT("Primary Attack Time Elapsed"));
-	FVector HandLocation = this->CurrentCharacter->GetMesh()->GetSocketLocation("Muzzle_01");
 
-	FRotator CameraRotation = this->GetControlRotation();
+	SpawnProjectile(ProjectileClass);
 
-	//FRotator CharRotation = this->CurrentCharacter->GetActorRotation();
-	FTransform SpawnTransform = FTransform(CameraRotation, HandLocation);
-
-	FActorSpawnParameters SpawnParams;
-	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	SpawnParams.Instigator = this->CurrentCharacter;
-
-
-	GetWorld()->SpawnActor<ASMagicProjectile>(ProjectileClass,
-		SpawnTransform, SpawnParams);
-
-	UE_LOG(LogTemp, Display, TEXT("Shooting"));
 }
 
 void ACharacterControllerBase::PrimaryInteract()

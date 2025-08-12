@@ -15,8 +15,6 @@ ASBlackHole::ASBlackHole()
 	SphereComponent->SetCollisionObjectType(ECC_WorldDynamic);
 	SphereComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	
-	//SphereComponent->SetCollisionResponseToAllChannels(ECR_Ignore);
-	//SphereComponent->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Block);
 	SphereComponent->SetCollisionResponseToChannel(ECC_PhysicsBody, ECR_Overlap);
 	SphereComponent->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
 	SphereComponent->SetSphereRadius(75.0f);
@@ -47,8 +45,6 @@ ASBlackHole::ASBlackHole()
 	RadialForceComponent->bIgnoreOwningActor = true; // Ignore the black hole itself
 	RadialForceComponent->bAutoActivate = true; // Activate the radial force component automatically
 	RadialForceComponent->AddCollisionChannelToAffect(ECC_WorldDynamic); // Affect dynamic objects
-	//RadialForceComponent->AddCollisionChannelToAffect(ECC_PhysicsBody); // Affect dynamic objects
-	//RadialForceComponent->AddCollisionChannelToAffect(ECC_WorldStatic); // Affect dynamic objects
 	RadialForceComponent->AddObjectTypeToAffect(EObjectTypeQuery::ObjectTypeQuery6); // Add World Dynamic objects to be affected by the radial force
 	RadialForceComponent->RemoveObjectTypeToAffect(EObjectTypeQuery::ObjectTypeQuery3); // Remove Pawns from being affected by the radial force
 	RadialForceComponent->bImpulseVelChange = true; // Apply impulse velocity change

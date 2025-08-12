@@ -5,6 +5,7 @@
 #include <GameFramework/SpringArmComponent.h>
 #include <Camera/CameraComponent.h>
 #include <GameFramework/CharacterMovementComponent.h>
+#include "SAttributeComponent.h"
 
 
 // Sets default values
@@ -30,6 +31,8 @@ ASCharacter::ASCharacter()
 	this->CameraComponent->bUsePawnControlRotation = false;
 
 	this->InteractionComponent = CreateDefaultSubobject<USInteractionComponent>(TEXT("TWA InteractionComponent"));
+
+	this->AttributeComponent = CreateDefaultSubobject<USAttributeComponent>(TEXT("AttributeComponent"));
 
 }
 

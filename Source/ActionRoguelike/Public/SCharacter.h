@@ -1,17 +1,19 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-
+#include "SAttributeComponent.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "SInteractionComponent.h"
 #include "SCharacter.generated.h"
 
 
+
 class UCameraComponent;
 class USpringArmComponent;
 class ProjectileClass;
 class USInteractionComponent;
+class USAttributeComponent;
 
 
 UCLASS()
@@ -33,6 +35,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = TWA_Camera, meta = (AllowPrivateAccess = "true"))
 	USInteractionComponent* InteractionComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	USAttributeComponent* AttributeComponent;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AActor>ProjectileClass;

@@ -1,32 +1,31 @@
 #include "SMagicProjectile.h"
 #include "Components/SphereComponent.h"
-#include "GameFramework/ProjectileMovementComponent.h"
-#include "Particles/ParticleSystemComponent.h"
+#include "SAttributeComponent.h"
+
 
 ASMagicProjectile::ASMagicProjectile()
 {
-	PrimaryActorTick.bCanEverTick = true;
 
-	SphereComponent = CreateDefaultSubobject<USphereComponent>("SphereComponent");
-	SphereComponent->SetCollisionProfileName("Projectile");
-	RootComponent = SphereComponent;
+	SphereComponent->SetSphereRadius(20.0f);
+	SphereComponent->OnComponentBeginOverlap.AddDynamic(this, &ASMagicProjectile::OnActorBeginOverlap);
 
-	ParticleSystemComponent = CreateDefaultSubobject<UParticleSystemComponent>("EffectComponent");
-	ParticleSystemComponent->SetupAttachment(SphereComponent);
-
-	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>("MovementComponent");
-	ProjectileMovementComponent->InitialSpeed = 1000.0f;
-	ProjectileMovementComponent->bRotationFollowsVelocity = true;
-	ProjectileMovementComponent->bInitialVelocityInLocalSpace = true;
-
+	DamageAmount = 20.0f;
 }
 
-void ASMagicProjectile::BeginPlay()
-{
-	Super::BeginPlay();
-}
 
-void ASMagicProjectile::Tick(float DeltaTime)
+void ASMagicProjectile::OnActorBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	Super::Tick(DeltaTime);
+	if (OtherActor && OtherActor != GetInstigator())
+	{
+		USAttributeComponent* AttributeComponent = Cast<USAttributeComponent>(OtherActor->GetComponentByClass(USAttributeComponent::StaticClass()));
+		if (AttributeComponent)
+		{
+			AttributeComponent->ApplyHealthChange(-DamageAmount);
+
+			UE_LOG(LogTemp, Display, TEXT("Hit Actor With Cannon: %s"), *OtherActor->GetName());
+
+			Explode();
+		}
+	}
+
 }

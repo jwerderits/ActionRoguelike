@@ -15,7 +15,7 @@ AExplosiveBarrel::AExplosiveBarrel()
 
 
 	//SphereComponent->OnComponentBeginOverlap.AddDynamic(this, &AExplosiveBarrel::Explode);
-	SphereComponent->SetSphereRadius(100.0f);
+	SphereComponent->SetSphereRadius(150.0f);
 
 	SphereComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	SphereComponent->SetCollisionObjectType(ECC_WorldDynamic);
